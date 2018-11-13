@@ -39,5 +39,7 @@ fibos.on('action', (message) => {
     console.log(message);
 });
 
+fibos.core_symbol = "EOS";
+fibos.pubkey_prefix = "EOS";
 
 fibos.start();
