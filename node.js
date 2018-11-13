@@ -1,6 +1,5 @@
 
 const fibos = require("fibos");
-const fs = require('fs');
 
 fibos.config_dir = "./data-dir";
 fibos.data_dir = "./data-dir";
@@ -35,7 +34,7 @@ var elasticWriteStream = require('./lib/elasticsearch.js');
 var writeStream = new elasticWriteStream(10, 'test', 'test');
 
 fibos.on('action', (message) => {
-	fs.appendFileSync('./dump.logs', JSON.stringify(message)+"\n");
+	
     try{
         writeStream.write(message);
     }catch(e){
