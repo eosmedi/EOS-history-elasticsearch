@@ -1,4 +1,6 @@
 # EOS-history-elasticsearch
+Use fibos emitter plugin as action data source
+
 
 ## Install FIBOS
 ```shell
@@ -15,4 +17,12 @@ sudo docker-compose up -d
 
 ```shell
 nohup fibos node.js > run.log &
+```
+
+## Install Kibana
+```shell
+wget https://artifacts.elastic.co/downloads/kibana/kibana-6.4.3-linux-x86_64.tar.gz
+tar zxvf kibana-6.4.3-linux-x86_64.tar.gz
+cd kibana-6.4.3-linux-x86_64
+bin/kibana
 ```
