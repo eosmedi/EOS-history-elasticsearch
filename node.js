@@ -11,13 +11,14 @@ fibos.load("http", {
 });
 
 fibos.load("net", {
-	// "p2p-peer-address": ["p2p-testnet.fibos.fo:9870"],
+	"p2p-peer-address": ["p2p-testnet.fibos.fo:9870"],
 	"p2p-listen-endpoint": "0.0.0.0:9870"
 });
 
-fibos.load("producer");
+// fibos.load("producer");
 fibos.load("chain", {
 	"contracts-console": true,
+	"hard-replay": true,
 	// "delete-all-blocks": true,
 	// "genesis-json": "genesis.json"
 });
