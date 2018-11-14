@@ -36,7 +36,7 @@ fibos.on('action', (message) => {
     try{
         writeStream.write(message);
     }catch(e){
-        console.log(e);
+        console.log('error', e);
     }
 });
 
