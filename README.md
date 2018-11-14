@@ -1,14 +1,14 @@
 # EOS-history-elasticsearch
 Use fibos emitter plugin as action data source
 
-
 ## Install FIBOS
+FIBOS is fully compatible with eos
+
 ```shell
 curl -s https://fibos.io/download/installer_beta.sh | sh
 ```
 
-## Run elasticsearch
-
+## Run Elasticsearch cluster
 ```shell
 sudo docker-compose up -d
 ```

@@ -4,8 +4,6 @@ const fibos = require("fibos");
 fibos.config_dir = "./data-dir";
 fibos.data_dir = "./data-dir";
 
-
-
 fibos.load("http", {
 	"http-server-address": "0.0.0.0:8870",
 	"access-control-allow-origin": "*",
