@@ -29,7 +29,7 @@ fibos.load("emitter");
 
 
 var elasticWriteStream = require('./lib/elasticsearch.js');
-var writeStream = new elasticWriteStream(10, 'test', 'test');
+var writeStream = new elasticWriteStream(1000, 'test', 'test');
 
 fibos.on('action', (message) => {
 	
