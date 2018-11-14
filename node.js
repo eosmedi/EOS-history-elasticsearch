@@ -19,9 +19,9 @@ fibos.load("net", {
 // fibos.load("producer");
 fibos.load("chain", {
 	"contracts-console": true,
-	// "hard-replay": true,
-	"delete-all-blocks": true,
-	"genesis-json": "genesis.json"
+	"hard-replay": true,
+	// "delete-all-blocks": true,
+	// "genesis-json": "genesis.json"
 });
 
 fibos.load("chain_api");
