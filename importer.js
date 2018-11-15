@@ -80,6 +80,9 @@ class Importer {
                 .pipe(traceTranformer)
                 .pipe(writeStream);
 
+
+            readStream.resume();
+
             readStream.on('end', () => {
                 console.log(currentFile, 'done');
                 // writeStream.end();
