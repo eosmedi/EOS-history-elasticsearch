@@ -37,9 +37,8 @@ class Importer {
         var date = moment().format('YYYYMMDDHHmmss');
         var targetFilePath = TARGET_DIR+'/'+file+'-'+date;
         // mv file to procceds dir
-        // fs.renameSync(TRACE_DIR+'/'+file, targetFilePath);
-
-        return filePath;
+        fs.renameSync(TRACE_DIR+'/'+file, targetFilePath);
+        // return filePath;
         return targetFilePath;
     }
 
@@ -77,8 +76,6 @@ class Importer {
             readStream.on('error', (er) => {
                 console.log('error', er);
             });
-
-
 
 
             readStream
