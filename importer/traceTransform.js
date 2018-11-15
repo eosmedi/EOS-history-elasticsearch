@@ -14,9 +14,14 @@ function TraceTransform(){
 
         var self = this;
 
-        trace = JSON.parse(trace);
-
         console.log('_transform', trace)
+        try{
+                trace = JSON.parse(trace);
+        }catch(e){
+
+        }
+
+       
 
         if(!trace.receipt){
             done();
