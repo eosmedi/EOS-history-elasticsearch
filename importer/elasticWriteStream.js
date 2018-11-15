@@ -45,6 +45,7 @@ function elasticWriteStream(batchSize, index, type){
     // var batch = [];
     var writable = Stream.Writable({
         objectMode: true,
+        highWaterMark: 1000,
         write: function(line, _, next) {
             // console.log('line', line);
             if(batch.length > batchSize){

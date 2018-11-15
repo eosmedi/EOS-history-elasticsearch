@@ -82,7 +82,7 @@ class Importer {
             // readStream.pipe(writable);
 
             readStream
-                // .pipe(traceTranformer)
+                .pipe(traceTranformer)
                 .pipe(writeStream);
 
 
