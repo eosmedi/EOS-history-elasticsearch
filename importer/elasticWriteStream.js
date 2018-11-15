@@ -55,9 +55,10 @@ function elasticWriteStream(batchSize, index, type){
                 })();
             }else{
                 batch.push(line);
-                console.log('line', batch.length)
+                // console.log('line', batch.length)
                 process.nextTick(next)
             }
+            return true;
         },
 
         _flush: () => {

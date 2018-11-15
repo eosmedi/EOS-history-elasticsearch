@@ -16,7 +16,7 @@ function TraceTransform(){
 
         var self = this;
 
-        console.log('_transform', trace)
+        // console.log('_transform', trace)
         try{
             trace = JSON.parse(trace);
         }catch(e){

@@ -70,6 +70,11 @@ class Importer {
                 // }
             });
 
+
+            traceTranformer.on('drain', () => {
+                console.log('drain');
+            })
+
             readStream.on('error', (er) => {
                 console.log('error', er);
             })
