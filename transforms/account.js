@@ -3,14 +3,17 @@
 
 module.exports = {
 
-    "eosio/newaccount": (traces, tranformer) => {
+    "eosio/newaccount": (traces, tranformer, block) => {
         traces.forEach((trace) => {
             var accountName = trace.act.data.name;
+            var docData = Object.assign({}, trace.act.data);
+            docData.time = block.block_time;
+
             var doc = {
                 _type: 'account',
                 _index: 'accounts',
                 _id: accountName,
-                _source: trace.act.data
+                _source: docData
             }
             tranformer.push(doc);
         })
