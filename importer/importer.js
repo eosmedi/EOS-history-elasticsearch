@@ -47,6 +47,8 @@ class Importer {
             setTimeout(() => { 
                 this.run() 
             }, 100);
+
+            console.log('empty');
             return;
         }
         
