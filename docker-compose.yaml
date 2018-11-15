@@ -40,5 +40,6 @@ volumes:
   esdata2:
     driver: local
 
+    
 networks:
   esnet:

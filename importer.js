@@ -42,13 +42,11 @@ class Importer {
         return targetFilePath;
     }
 
-
     addTransform(transformer){
         this.transforms.push(transformer);
     }
 
     run(){
-
         try{
             var currentFile = this.getNextFile();
             if(!currentFile){
@@ -103,7 +101,7 @@ class Importer {
 
 var importer = new Importer(TRACE_DIR);
 
+// tranform
 importer.addTransform(require('./transforms/account'));
-
 importer.run();
 
