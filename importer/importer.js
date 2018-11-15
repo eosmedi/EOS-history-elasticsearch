@@ -58,6 +58,10 @@ class Importer {
 
         console.log(currentFile, filePath, targetFilePath);
 
+        readStream.on('readable', () => {
+            console.log('readable')
+        })
+
         readStream
             .pipe(traceTranformer)
             .pipe(writeStream);
