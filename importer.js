@@ -2,9 +2,9 @@
 const fs = require('fs');
 const TRACE_DIR = './traces';
 const TARGET_DIR = './traces/proccesed';
-const getFileStreamer = require('./filestreamer');
-const elasticWriteStream = require('./elasticWriteStream');
-const getTraceTransform = require('./traceTransform');
+const getFileStreamer = require('./importer/filestreamer');
+const elasticWriteStream = require('./importer/elasticWriteStream');
+const getTraceTransform = require('./importer/traceTransform');
 const moment = require('moment');
 var Stream = require('stream');
 
@@ -57,8 +57,8 @@ class Importer {
             var targetFilePath = this.fileProccede(currentFile);
             
             var readStream = getFileStreamer(targetFilePath);
-            // var writeStream = new elasticWriteStream(100);
-            // var traceTranformer = getTraceTransform();
+            var writeStream = new elasticWriteStream(100);
+            var traceTranformer = getTraceTransform();
 
             console.log(currentFile, filePath, targetFilePath);
 
