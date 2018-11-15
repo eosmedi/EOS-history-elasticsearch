@@ -67,6 +67,7 @@ class Importer {
             objectMode: true,
             write: function(line, _, next) {
                 console.log('line', line);
+                next();
             }
         })
 
