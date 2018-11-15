@@ -2,6 +2,11 @@
 const fibos = require("fibos");
 const fs = require('fs');
 const moment = require('moment');
+const traceFileDir = './traces';
+
+if(!fs.existsSync(traceFileDir)){
+    fs.mkdirSync(traceFileDir);
+}
 
 BigInt.prototype.toJSON = function() {
     return this.toString();

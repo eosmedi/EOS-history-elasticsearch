@@ -9,8 +9,6 @@ const moment = require('moment');
 const Stream = require('stream');
 const WAIT_DURATION = 60 * 1000;
 
-
-
 if(!fs.existsSync(TARGET_DIR)){
     fs.mkdirSync(TARGET_DIR);
 }
