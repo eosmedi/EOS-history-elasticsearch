@@ -17,14 +17,19 @@ function TraceTransform(){
         trace = JSON.parse(trace);
 
         if(!trace.receipt){
+            done();
             return;
         }
 
         if(trace.receipt.status == "hard_fail"){
+            done();
             return;
         }
 
-        if (trace.act && trace.act.name === "onblock") return;
+        if (trace.act && trace.act.name === "onblock"){
+            done();
+            return;
+        } 
 
         var actions = [];
         var messages = {};
@@ -97,8 +102,11 @@ function TraceTransform(){
             });
         }
 
-        excuteAct(trace);
-        console.time("emitter-time");
+        try{
+            excuteAct(trace);
+        }catch(e){
+
+        }
         done()
     }
 
