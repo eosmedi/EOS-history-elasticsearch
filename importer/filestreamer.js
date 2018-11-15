@@ -2,7 +2,11 @@ var stream = require('stream'),
     fs = require('fs');
 
 function getFileStreamer(FILE_PATH){
-    var liner = new stream.Transform( { objectMode: true } )
+    var liner = new stream.Transform({ 
+        objectMode: true,
+        highWaterMark: 1000
+    });
+    
     liner._transform = function (chunk, encoding, done) {
         var data = chunk.toString()
         if (this._lastLineData) data = this._lastLineData + data
