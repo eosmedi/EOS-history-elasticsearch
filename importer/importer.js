@@ -65,7 +65,7 @@ class Importer {
             readStream.on('readable', () => {
                 console.log('readable')
                 let data;
-                while (data = this.read()) {
+                while (data = readStream.read()) {
                     console.log(data);
                 }
             });
