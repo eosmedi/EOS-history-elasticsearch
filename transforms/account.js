@@ -1,6 +1,3 @@
-
-
-
 module.exports = {
 
     "eosio/newaccount": (traces, tranformer, block) => {
@@ -21,7 +18,6 @@ module.exports = {
 
     "eosio/updateauth": (traces, tranformer) => {
         traces.forEach((trace) => {
-
             var actionData = trace.act.data;
             var accountName = actionData.account;
             var updateDoc = {};
@@ -33,7 +29,9 @@ module.exports = {
                 _type: 'account',
                 _index: 'accounts',
                 _id: accountName,
-                _source: updateDoc
+                _source: {
+                    doc: updateDoc
+                }
             }
             tranformer.push(doc);
         })
@@ -51,7 +49,9 @@ module.exports = {
                 _type: 'account',
                 _index: 'accounts',
                 _id: accountName,
-                _source: updateDoc
+                _source: {
+                    doc: updateDoc
+                }
             }
             tranformer.push(doc);
         })

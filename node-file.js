@@ -1,4 +1,3 @@
-
 const fibos = require("fibos");
 const fs = require('fs');
 const moment = require('moment');
@@ -39,8 +38,6 @@ fibos.load("chain_api");
 fibos.load("emitter");
 
 
-// var elasticWriteStream = require('./lib/elasticsearch.js');
-// var writeStream = new elasticWriteStream(3000, 'test', 'test');
 var batchSize = 3000;
 var batch = [];
 
