@@ -16,12 +16,10 @@ function TraceTransform(){
 
         console.log('_transform', trace)
         try{
-                trace = JSON.parse(trace);
+            trace = JSON.parse(trace);
         }catch(e){
 
         }
-
-       
 
         if(!trace.receipt){
             done();

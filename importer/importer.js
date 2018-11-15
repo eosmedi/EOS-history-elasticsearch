@@ -6,7 +6,7 @@ const getFileStreamer = require('./filestreamer');
 const elasticWriteStream = require('./elasticWriteStream');
 const getTraceTransform = require('./traceTransform');
 const moment = require('moment');
-
+var Stream = require('stream');
 
 if(!fs.existsSync(TARGET_DIR)){
     fs.mkdirSync(TARGET_DIR);
@@ -62,9 +62,19 @@ class Importer {
             console.log('readable')
         })
 
-        readStream
-            .pipe(traceTranformer)
-            .pipe(writeStream);
+
+        var writable = Stream.Writable({
+            objectMode: true,
+            write: function(line, _, next) {
+                console.log('line', line);
+            }
+        })
+
+        readStream.pipe(writable);
+
+        // readStream
+        //     .pipe(traceTranformer)
+        //     .pipe(writeStream);
 
         readStream.on('end', () => {
             writeStream.end();
