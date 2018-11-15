@@ -36,6 +36,8 @@ class Importer {
         var targetFilePath = TARGET_DIR+'/'+file+'-'+date;
         // mv file to procceds dir
         fs.renameSync(TRACE_DIR+'/'+file, targetFilePath);
+
+        return targetFilePath;
     }
 
     run(){
@@ -47,16 +49,15 @@ class Importer {
             }, 100);
             return;
         }
-
         
-
         var filePath = TRACE_DIR+'/'+currentFile;
-        var readStream = getFileStreamer(filePath);
+        var targetFilePath = this.fileProccede(currentFile);
+        var readStream = getFileStreamer(targetFilePath);
         var writeStream = new elasticWriteStream(100);
         var traceTranformer = getTraceTransform();
 
-
         console.log(currentFile, filePath);
+        
 
         readStream
             .pipe(traceTranformer)
@@ -66,7 +67,7 @@ class Importer {
             writeStream.end();
             console.log(currentFile, 'done');
             // process.exit();
-            this.fileProccede(currentFile);
+            
             setTimeout(() => { 
                 this.run() 
             }, 100);
