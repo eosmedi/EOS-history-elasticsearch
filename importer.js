@@ -74,22 +74,13 @@ class Importer {
                 console.log('error', er);
             })
 
-            var writable = Stream.Writable({
-                objectMode: true,
-                write: function(line, _, next) {
-                    console.log('line', line);
-                    next();
-                }
-            })
+            // readStream.pipe(writable);
 
-            readStream.pipe(writable);
-
-            // readStream
-            //     .pipe(traceTranformer)
-            //     .pipe(writeStream);
+            readStream
+                .pipe(traceTranformer)
+                .pipe(writeStream);
 
             readStream.on('end', () => {
-
                 console.log(currentFile, 'done');
                 // writeStream.end();
                 // process.exit();
