@@ -63,11 +63,11 @@ class Importer {
             var traceTranformer = getTraceTransform();
 
             console.log(currentFile, filePath, targetFilePath);
-            console.log(readStream._readableState);
+            // console.log(readStream._readableState);
 
             readStream.on('error', (er) => {
                 console.log('error', er);
-            })
+            });
 
             readStream
                 .pipe(traceTranformer)
