@@ -9,7 +9,7 @@ if(!fs.existsSync(traceFileDir)){
 }
 
 BigInt.prototype.toJSON = function() {
-    return parseInt(this.toString());
+    return this.toString();
 };
 
 fibos.config_dir = "./data-dir";
