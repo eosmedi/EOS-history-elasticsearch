@@ -7,15 +7,15 @@ const Vision = require('vision');
 // 文档
 const SwaggerOptions = {
   info: {
-    'title': 'Adbug API Documentation',
+    'title': 'EOS Elasticsearch History API Documentation',
     'version': '0.0.1'
   },
 };
 
 const init = async () => {
   const server = new Hapi.Server({ 
-    // host: '0.0.0.0',
-    port: 8000
+    host: '0.0.0.0',
+    port: 80
   });
 
   await server.register([

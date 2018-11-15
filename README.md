@@ -32,3 +32,39 @@ bin/kibana
 ```shell
 node importer.js
 ```
+
+
+## Start API
+```shell
+node app.js
+```
+
+
+# API List
+
+### /v1/history/get_actions
+
+- **Params**：
+  - `{String} account_name` account_name
+  - `{String} dapp` dapp
+  - `{String} action` action
+  - `{String} pos` pos
+  - `{String} offset` offset
+
+- **Use**：
+
+  list actions
+
+
+
+
+### /v1/history/get_key_accounts
+
+- **Params**：
+  - `{String} public_key` publick key
+
+- **Use**：
+
+  list accounts
+
+
