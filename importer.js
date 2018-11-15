@@ -63,14 +63,7 @@ class Importer {
             console.log(currentFile, filePath, targetFilePath);
             console.log(readStream._readableState);
 
-            readStream.on('readable', () => {
-                console.log('readable', readStream._readableState)
-                let data;
-                // while (data = readStream.read()) {
-                //     // console.log(data);
-                // }
-            });
-
+      
 
             traceTranformer.on('drain', () => {
                 console.log('drain');
