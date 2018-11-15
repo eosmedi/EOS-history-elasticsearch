@@ -6,7 +6,10 @@ const getFileStreamer = require('./importer/filestreamer');
 const elasticWriteStream = require('./importer/elasticWriteStream');
 const getTraceTransform = require('./importer/traceTransform');
 const moment = require('moment');
-var Stream = require('stream');
+const Stream = require('stream');
+const WAIT_DURATION = 60 * 1000;
+
+
 
 if(!fs.existsSync(TARGET_DIR)){
     fs.mkdirSync(TARGET_DIR);
@@ -47,8 +50,7 @@ class Importer {
             if(!currentFile){
                 setTimeout(() => { 
                     this.run() 
-                }, 100);
-
+                }, WAIT_DURATION);
                 console.log('empty');
                 return;
             }
@@ -63,32 +65,23 @@ class Importer {
             console.log(currentFile, filePath, targetFilePath);
             console.log(readStream._readableState);
 
-      
-
-            traceTranformer.on('drain', () => {
-                console.log('drain');
-            })
-
             readStream.on('error', (er) => {
                 console.log('error', er);
             })
-
-            // readStream.pipe(writable);
 
             readStream
                 .pipe(traceTranformer)
                 .pipe(writeStream);
 
-
-            readStream.resume();
+            // readStream.resume();
 
             readStream.on('end', () => {
                 console.log(currentFile, 'done');
-                // writeStream.end();
+                writeStream.end();
                 // process.exit();
                 setTimeout(() => { 
                     this.run() 
-                }, 100);
+                }, WAIT_DURATION);
             })
         }catch(e){
             console.log(e.stack)
