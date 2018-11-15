@@ -64,6 +64,10 @@ class Importer {
 
             readStream.on('readable', () => {
                 console.log('readable')
+                let data;
+                while (data = this.read()) {
+                    console.log(data);
+                }
             });
 
             readStream.on('error', (er) => {
