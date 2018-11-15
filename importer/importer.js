@@ -56,8 +56,7 @@ class Importer {
         var writeStream = new elasticWriteStream(100);
         var traceTranformer = getTraceTransform();
 
-        console.log(currentFile, filePath);
-        
+        console.log(currentFile, filePath, targetFilePath);
 
         readStream
             .pipe(traceTranformer)
@@ -67,7 +66,6 @@ class Importer {
             writeStream.end();
             console.log(currentFile, 'done');
             // process.exit();
-            
             setTimeout(() => { 
                 this.run() 
             }, 100);
