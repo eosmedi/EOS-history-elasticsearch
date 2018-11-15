@@ -61,7 +61,7 @@ class Importer {
             var traceTranformer = getTraceTransform();
 
             console.log(currentFile, filePath, targetFilePath);
-            console.log(eadStream._readableState);
+            console.log(readStream._readableState);
 
             readStream.on('readable', () => {
                 console.log('readable', readStream._readableState)
