@@ -16,6 +16,8 @@ function TraceTransform(){
 
         trace = JSON.parse(trace);
 
+        console.log('_transform', trace)
+
         if(!trace.receipt){
             done();
             return;
