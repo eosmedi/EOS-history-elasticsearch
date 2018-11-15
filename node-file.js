@@ -1,6 +1,11 @@
 
 const fibos = require("fibos");
+const fs = require('fs');
+const moment = require('moment');
 
+BigInt.prototype.toJSON = function() {
+    return this.toString();
+};
 
 fibos.config_dir = "./data-dir";
 fibos.data_dir = "./data-dir";
@@ -29,13 +34,19 @@ fibos.load("chain_api");
 fibos.load("emitter");
 
 
-var elasticWriteStream = require('./lib/elasticsearch.js');
-var writeStream = new elasticWriteStream(3000, 'test', 'test');
+// var elasticWriteStream = require('./lib/elasticsearch.js');
+// var writeStream = new elasticWriteStream(3000, 'test', 'test');
+var batchSize = 3000;
+var batch = [];
 
 fibos.on('action', (message) => {
-	
     try{
-        writeStream.write(message);
+        if(batch.length > batchSize){
+            batch.push(message);
+        }else{
+            var fileName = './traces/trace.log';
+            fs.appendFileSync(fileName, batch.join("\n"));
+        }
     }catch(e){
         console.log('error', e);
     }
