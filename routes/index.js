@@ -19,7 +19,7 @@ routes.push({
             query: {
                 account_name: Joi.string().min(0).max(13).description("account name"),
                 dapp: Joi.string().min(0).max(13).description("dapp account"),
-                action: Joi.number().min(0).max(1000).description("action"),
+                action: Joi.string().min(0).max(1000).description("action"),
                 pos: Joi.number().min(0).max(1000000000).description("pos"),
                 offset: Joi.number().min(0).max(1000000000).description("offset"),
             }
