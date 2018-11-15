@@ -48,12 +48,15 @@ class Importer {
             return;
         }
 
-        console.log(currentFile);
+        
 
         var filePath = TRACE_DIR+'/'+currentFile;
         var readStream = getFileStreamer(filePath);
         var writeStream = new elasticWriteStream(100);
         var traceTranformer = getTraceTransform();
+
+
+        console.log(currentFile, filePath);
 
         readStream
             .pipe(traceTranformer)
