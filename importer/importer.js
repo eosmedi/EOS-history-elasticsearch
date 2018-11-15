@@ -55,38 +55,43 @@ class Importer {
             
             var filePath = TRACE_DIR+'/'+currentFile;
             var targetFilePath = this.fileProccede(currentFile);
-            var readStream = getFileStreamer(targetFilePath);
-            var writeStream = new elasticWriteStream(100);
-            var traceTranformer = getTraceTransform();
 
-            console.log(currentFile, filePath, targetFilePath);
 
-            readStream.on('readable', () => {
-                console.log('readable')
-            });
+            setTimeout(() => {
 
-            var writable = Stream.Writable({
-                objectMode: true,
-                write: function(line, _, next) {
-                    console.log('line', line);
-                    next();
-                }
-            })
+                var readStream = getFileStreamer(targetFilePath);
+                var writeStream = new elasticWriteStream(100);
+                var traceTranformer = getTraceTransform();
 
-            readStream.pipe(writable);
+                console.log(currentFile, filePath, targetFilePath);
 
-            // readStream
-            //     .pipe(traceTranformer)
-            //     .pipe(writeStream);
+                readStream.on('readable', () => {
+                    console.log('readable')
+                });
 
-            readStream.on('end', () => {
-                writeStream.end();
-                console.log(currentFile, 'done');
-                // process.exit();
-                setTimeout(() => { 
-                    this.run() 
-                }, 100);
-            })
+                var writable = Stream.Writable({
+                    objectMode: true,
+                    write: function(line, _, next) {
+                        console.log('line', line);
+                        next();
+                    }
+                })
+
+                readStream.pipe(writable);
+
+                // readStream
+                //     .pipe(traceTranformer)
+                //     .pipe(writeStream);
+
+                readStream.on('end', () => {
+                    writeStream.end();
+                    console.log(currentFile, 'done');
+                    // process.exit();
+                    setTimeout(() => { 
+                        this.run() 
+                    }, 100);
+                })
+            }, 3000)
         }catch(e){
             console.log(e.stack)
         }
