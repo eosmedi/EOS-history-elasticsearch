@@ -1,4 +1,3 @@
-import { setTimeout } from 'timers';
 
 const fs = require('fs');
 const TRACE_DIR = './traces';
@@ -6,6 +5,7 @@ const TARGET_DIR = './traces/proccesed';
 const getFileStreamer = require('./filestreamer');
 const elasticWriteStream = require('./elasticWriteStream');
 const getTraceTransform = require('./traceTransform');
+const moment = require('moment');
 
 
 if(!fs.existsSync(TARGET_DIR)){
@@ -25,19 +25,17 @@ class Importer {
             var filePath = TRACE_DIR+'/'+currentFile;
             var status = fs.lstatSync(filePath);
             if(!status.isDirectory()){
-                return filePath;
+                return currentFile;
                 break;
             }
         }
     }
 
     fileProccede(file){
-
         var date = moment().format('YYYYMMDDHHmmss');
         var targetFilePath = TARGET_DIR+'/'+file+'-'+date;
         // mv file to procceds dir
-        fs.renameSync(file, targetFilePath);
-
+        fs.renameSync(TRACE_DIR+'/'+file, targetFilePath);
     }
 
     run(){
@@ -47,9 +45,13 @@ class Importer {
             setTimeout(() => { 
                 this.run() 
             }, 100);
+            return;
         }
 
-        var readStream = getFileStreamer(currentFile);
+        console.log(currentFile);
+
+        var filePath = TRACE_DIR+'/'+currentFile;
+        var readStream = getFileStreamer(filePath);
         var writeStream = new elasticWriteStream(100);
         var traceTranformer = getTraceTransform();
 
@@ -57,21 +59,19 @@ class Importer {
             .pipe(traceTranformer)
             .pipe(writeStream);
 
-        // readStream.pipe(writeStream);
         readStream.on('end', () => {
             writeStream.end();
             console.log(currentFile, 'done');
+            // process.exit();
             this.fileProccede(currentFile);
             setTimeout(() => { 
                 this.run() 
             }, 100);
         })
-        // console.log(currentFile);
     }
 
 }
 
-var currentFiles = fs.readdirSync(TRACE_DIR);
 
 
 var importer = new Importer(TRACE_DIR);

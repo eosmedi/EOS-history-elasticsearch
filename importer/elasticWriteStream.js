@@ -17,8 +17,6 @@ function elasticWriteStream(batchSize, index, type){
             return;
         }
 
-
-        
         batch.forEach((elem) => {
             // var hash = md5(JSON.stringify(piece));
             body.push({ 
@@ -45,10 +43,10 @@ function elasticWriteStream(batchSize, index, type){
 
 
     // var batch = [];
-
     var writable = Stream.Writable({
         objectMode: true,
         write: function(line, _, next) {
+            // console.log('line', line);
             if(batch.length > batchSize){
                 (async () => {
                     await write();
@@ -57,13 +55,17 @@ function elasticWriteStream(batchSize, index, type){
                 })();
             }else{
                 batch.push(line);
+                console.log('line', batch.length)
                 process.nextTick(next)
             }
+        },
+
+        _flush: () => {
+            console.log('flush')
         }
     })
 
     writable.on('finish', () => {
-        // console.log('finish')
         (async () => {
             await write();
             console.log('finish done');
