@@ -2,9 +2,9 @@
 const fs = require('fs');
 const TRACE_DIR = './traces';
 const TARGET_DIR = './traces/proccesed';
-const getFileStreamer = require('./importer/filestreamer');
-const elasticWriteStream = require('./importer/elasticWriteStream');
-const getTraceTransform = require('./importer/traceTransform');
+const getFileStreamer = require('./lib/filestreamer');
+const elasticWriteStream = require('./lib/elasticWriteStream');
+const getTraceTransform = require('./lib/traceTransform');
 const moment = require('moment');
 const Stream = require('stream');
 const WAIT_DURATION = 60 * 1000;
@@ -17,6 +17,7 @@ class Importer {
 
     constructor(DIR){
         this.dir = DIR;
+        this.transforms = [];
     }
 
     getNextFile(){
@@ -32,13 +33,19 @@ class Importer {
         }
     }
 
-    fileProccede(file){
+    fileProccede(file, filePath){
         var date = moment().format('YYYYMMDDHHmmss');
         var targetFilePath = TARGET_DIR+'/'+file+'-'+date;
         // mv file to procceds dir
-        fs.renameSync(TRACE_DIR+'/'+file, targetFilePath);
+        // fs.renameSync(TRACE_DIR+'/'+file, targetFilePath);
 
+        return filePath;
         return targetFilePath;
+    }
+
+
+    addTransform(transformer){
+        this.transforms.push(transformer);
     }
 
     run(){
@@ -54,11 +61,15 @@ class Importer {
             }
             
             var filePath = TRACE_DIR+'/'+currentFile;
-            var targetFilePath = this.fileProccede(currentFile);
+            var targetFilePath = this.fileProccede(currentFile, filePath);
             
             var readStream = getFileStreamer(targetFilePath);
             var writeStream = new elasticWriteStream(100);
             var traceTranformer = getTraceTransform();
+
+            this.transforms.forEach((transform) => {
+                traceTranformer.use(transform);
+            })
 
             console.log(currentFile, filePath, targetFilePath);
             // console.log(readStream._readableState);
@@ -66,6 +77,9 @@ class Importer {
             readStream.on('error', (er) => {
                 console.log('error', er);
             });
+
+
+
 
             readStream
                 .pipe(traceTranformer)
@@ -91,4 +105,8 @@ class Importer {
 
 
 var importer = new Importer(TRACE_DIR);
+
+importer.addTransform(require('./transforms/account'));
+
 importer.run();
+
