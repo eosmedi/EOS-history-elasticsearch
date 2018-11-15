@@ -85,8 +85,9 @@ class Importer {
             //     .pipe(writeStream);
 
             readStream.on('end', () => {
-                writeStream.end();
+
                 console.log(currentFile, 'done');
+                // writeStream.end();
                 // process.exit();
                 setTimeout(() => { 
                     this.run() 
