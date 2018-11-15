@@ -59,10 +59,6 @@ function elasticWriteStream(batchSize, index, type){
                 process.nextTick(next)
             }
             return true;
-        },
-
-        _flush: () => {
-            console.log('flush')
         }
     })
 
