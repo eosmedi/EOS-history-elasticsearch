@@ -41,12 +41,7 @@ var batch = [];
 
 fibos.on('action', (message) => {
     try{
-        if(batch.length > batchSize){
-            batch.push(message);
-        }else{
-            var fileName = './traces/trace.log';
-            fs.appendFileSync(fileName, batch.join("\n"));
-        }
+        fs.appendFileSync('./traces/trace.log', JSON.stringify(message)+"\n");
     }catch(e){
         console.log('error', e);
     }
