@@ -4,8 +4,10 @@ var stream = require('stream'),
 
 function TraceTransform(){
 
-
-    var transformer = new stream.Transform({ objectMode: true });
+    var transformer = new stream.Transform({ 
+        objectMode: true,
+        highWaterMark: 1000
+    });
 
     
     transformer.hook_ = {};
