@@ -39,6 +39,34 @@ bin/kibana
 node importer.js
 ```
 
+## Transfoms
+tranforms allow your insert or update a doc to elasticsearch
+
+### Add New Tranform
+Such as listen contract deploy logs
+
+``` js
+var customTransform = {
+    "eosio/setcode": (traces, tranformer, block) => {
+        traces.forEach((trace) => {
+            var docData = Object.assign({}, trace.act.data);
+            var doc = {
+                _type: 'deploylog',
+                // index name
+                _index: 'deploylogs',
+                _id: null,
+                _source: docData
+            }
+            // push doc to elasticsearch write stream
+            tranformer.push(doc);
+        })
+    },
+}
+
+importer.addTransform(customTransform);
+```
+
+
 
 ## Start API
 ```shell
