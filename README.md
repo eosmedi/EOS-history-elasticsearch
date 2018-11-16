@@ -2,7 +2,10 @@
 Use fibos emitter plugin as action data source
 
 
+
 ![Image text](https://raw.githubusercontent.com/lljxx1/EOS-history-elasticsearch/master/diagram.png)
+
+
 
 
 ## Install FIBOS
