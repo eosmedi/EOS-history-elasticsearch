@@ -1,4 +1,4 @@
-# EOS-history-elasticsearch
+# EOS-history-elasticsearch[WIP]
 Use fibos emitter plugin as action data source
 
 
