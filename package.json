@@ -1,0 +1,22 @@
+{
+  "name": "adbug-api",
+  "version": "1.0.0",
+  "description": "Adbug API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bell": "^9.3.1",
+    "elasticsearch": "^15.1.1",
+    "es-tabify": "^1.0.0",
+    "hapi": "^17.5.2",
+    "hapi-swagger": "^9.1.1",
+    "inert": "^5.1.0",
+    "moment": "^2.22.2",
+    "promise": "^8.0.1",
+    "vision": "^5.3.3"
+  }
+}
